@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:orders_test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    open-in-view: false
+notification:
+  enabled-channels: []
+  retry:
+    max-attempts: 3
+    initial-delay-ms: 50
+    multiplier: 1.0
+# keep any existing test notification settings you already have below

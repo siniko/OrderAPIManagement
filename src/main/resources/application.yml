@@ -1,0 +1,55 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:h2:file:./data/orders;MODE=PostgreSQL;AUTO_SERVER=TRUE
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  # Simple fixed basic auth user (works only if you DO NOT define your own UserDetailsService bean)
+  # If you keep your SecurityConfig with in-memory user, this section is optional.
+  security:
+    user:
+      name: user
+      password: password
+      roles: USER
+
+# Notification settings (we’ll use these later)
+notification:
+  enabled-channels: [webhook, email, sms]
+
+  webhook:
+    base-url: http://localhost:8089
+    path: /notify
+
+  retry:
+    max-attempts: 3
+    initial-delay-ms: 200
+    multiplier: 2.0
+
+  email:
+    from: noreply@orderapi.local
+    to: user@example.com
+
+  sms:
+    from: OrderAPI
+    to: "+64000000000"
+
+logging:
+  level:
+    root: INFO
+    org.hibernate.SQL: DEBUG
+    org.springframework.security: INFO
